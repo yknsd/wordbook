@@ -1,0 +1,62 @@
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stat-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: #f3f4f6;
+  color: #374151;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.stat-chip.active,
+.stat-chip:hover {
+  border-color: #0891b2;
+  background: #cffafe;
+  color: #0e7490;
+}
+
+.chip-known.active, .chip-known:hover { border-color: #059669; background: #d1fae5; color: #065f46; }
+.chip-unknown.active, .chip-unknown:hover { border-color: #dc2626; background: #fee2e2; color: #991b1b; }
+.chip-unreviewed { cursor: default; }
+
+.chip-count {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 1px 7px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.reset-btn {
+  background: none;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #6b7280;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.reset-btn:hover { border-color: #9ca3af; color: #374151; }
