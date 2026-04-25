@@ -27,7 +27,7 @@ export function FlashCard({ word, status, onKnown, onUnknown, current, total }: 
 
   useEffect(() => {
     setFlipped(false)
-    const timer = setTimeout(() => speak(word.word), 150)
+    const timer = setTimeout(() => speak(word.word, true), 150)
     return () => clearTimeout(timer)
   }, [word.id, speak, word.word])
 
