@@ -175,12 +175,6 @@
   font-weight: 700;
 }
 
-.tap-hint {
-  position: absolute;
-  bottom: 14px;
-  font-size: 12px;
-  color: #9ca3af;
-}
 
 /* 裏面共通ボタン */
 .speak-btn-back {
@@ -271,25 +265,6 @@
 .btn-icon { font-size: 20px; }
 .btn-label { font-size: 13px; }
 
-.nav-buttons { display: flex; gap: 8px; }
-
-.nav-btn {
-  background: #f3f4f6;
-  border: none;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  font-size: 22px;
-  cursor: pointer;
-  color: #374151;
-  transition: all 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-btn:hover:not(:disabled) { background: #e5e7eb; transform: scale(1.08); }
-.nav-btn:disabled { opacity: 0.3; cursor: default; }
 
 .status-indicator {
   font-size: 13px;

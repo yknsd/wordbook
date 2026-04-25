@@ -58,8 +58,6 @@ export default function App() {
             status={progress[currentWord.id] ?? 'unreviewed'}
             onKnown={handleKnown}
             onUnknown={handleUnknown}
-            onNext={() => setIndex((i) => Math.min(i + 1, filteredWords.length - 1))}
-            onPrev={() => setIndex((i) => Math.max(i - 1, 0))}
             current={safeIndex + 1}
             total={filteredWords.length}
           />
