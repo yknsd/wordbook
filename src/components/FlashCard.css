@@ -95,9 +95,18 @@
   letter-spacing: 0.05em;
 }
 
-.level-essential  { background: #d1fae5; color: #065f46; }
-.level-intermediate { background: #dbeafe; color: #1e40af; }
-.level-advanced   { background: #fce7f3; color: #9d174d; }
+.level-essential {
+  background: #d1fae5;
+  color: #065f46;
+}
+.level-intermediate {
+  background: #dbeafe;
+  color: #1e40af;
+}
+.level-advanced {
+  background: #fce7f3;
+  color: #9d174d;
+}
 
 .word-text {
   font-size: 40px;
@@ -131,7 +140,10 @@
   margin-top: 4px;
 }
 
-.speak-btn-center:hover { background: #f3f4f6; transform: scale(1.1); }
+.speak-btn-center:hover {
+  background: #f3f4f6;
+  transform: scale(1.1);
+}
 
 .front-divider {
   width: 48px;
@@ -175,7 +187,6 @@
   font-weight: 700;
 }
 
-
 /* 裏面共通ボタン */
 .speak-btn-back {
   position: absolute;
@@ -194,7 +205,10 @@
   transition: all 0.15s ease;
 }
 
-.speak-btn-back:hover { background: rgba(255, 255, 255, 0.15); transform: scale(1.1); }
+.speak-btn-back:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.1);
+}
 
 .part-of-speech {
   font-size: 14px;
@@ -256,15 +270,30 @@
   font-family: inherit;
 }
 
-.unknown-btn { background: #fee2e2; color: #dc2626; }
-.unknown-btn:hover { background: #fecaca; transform: scale(1.02); }
+.unknown-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.unknown-btn:hover {
+  background: #fecaca;
+  transform: scale(1.02);
+}
 
-.known-btn { background: #d1fae5; color: #059669; }
-.known-btn:hover { background: #a7f3d0; transform: scale(1.02); }
+.known-btn {
+  background: #d1fae5;
+  color: #059669;
+}
+.known-btn:hover {
+  background: #a7f3d0;
+  transform: scale(1.02);
+}
 
-.btn-icon { font-size: 20px; }
-.btn-label { font-size: 13px; }
-
+.btn-icon {
+  font-size: 20px;
+}
+.btn-label {
+  font-size: 13px;
+}
 
 .status-indicator {
   font-size: 13px;
@@ -273,5 +302,11 @@
   border-radius: 20px;
 }
 
-.status-indicator.known   { background: #d1fae5; color: #059669; }
-.status-indicator.unknown { background: #fee2e2; color: #dc2626; }
+.status-indicator.known {
+  background: #d1fae5;
+  color: #059669;
+}
+.status-indicator.unknown {
+  background: #fee2e2;
+  color: #dc2626;
+}

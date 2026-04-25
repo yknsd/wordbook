@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState } from 'react'
 import { words } from './data/words'
 import type { Word } from './data/words'
 import { FlashCard } from './components/FlashCard'
@@ -23,22 +23,17 @@ export default function App() {
   const [index, setIndex] = useState(0)
   const [deck, setDeck] = useState<Word[]>(() => shuffle(words))
 
-  const filteredWords = useMemo(() => {
-    if (filter === 'all') return words
-    return words.filter((w) => (progress[w.id] ?? 'unreviewed') === filter)
-  }, [filter, progress])
-
-  // フィルターが変わるたびにシャッフルし直す
-  useEffect(() => {
-    setDeck(shuffle(filteredWords))
-    setIndex(0)
-  }, [filter]) // eslint-disable-line react-hooks/exhaustive-deps
-
   const safeIndex = Math.min(index, Math.max(0, deck.length - 1))
   const currentWord = deck[safeIndex]
 
+  // フィルターが変わるたびにシャッフルし直す
+  // filteredWords は useMemo だと filter 変更前の値を参照するため、直接計算する
   const handleFilterChange = (f: Filter) => {
+    const filtered =
+      f === 'all' ? words : words.filter((w) => (progress[w.id] ?? 'unreviewed') === f)
     setFilter(f)
+    setDeck(shuffle(filtered))
+    setIndex(0)
   }
 
   const handleKnown = () => {
@@ -87,7 +82,9 @@ export default function App() {
           <div className="empty-state">
             <div className="empty-icon">🎉</div>
             <p>このフィルターに単語がありません</p>
-            <button className="empty-btn" onClick={() => handleFilterChange('all')}>全て表示</button>
+            <button className="empty-btn" onClick={() => handleFilterChange('all')}>
+              全て表示
+            </button>
           </div>
         )}
       </main>

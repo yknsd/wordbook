@@ -17,16 +17,28 @@ function highlightWord(sentence: string, target: string) {
   const regex = new RegExp(`(${target.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
   const parts = sentence.split(regex)
   return parts.map((part, i) =>
-    regex.test(part) ? <mark key={i} className="word-highlight">{part}</mark> : part
+    regex.test(part) ? (
+      <mark key={i} className="word-highlight">
+        {part}
+      </mark>
+    ) : (
+      part
+    ),
   )
 }
 
 export function FlashCard({ word, status, onKnown, onUnknown, current, total }: Props) {
   const [flipped, setFlipped] = useState(false)
+  const [prevWordId, setPrevWordId] = useState(word.id)
   const { speak } = useSpeech()
 
-  useEffect(() => {
+  // 単語が変わったらレンダー中に同期リセット（useEffect 内の setState を避ける）
+  if (word.id !== prevWordId) {
+    setPrevWordId(word.id)
     setFlipped(false)
+  }
+
+  useEffect(() => {
     const timer = setTimeout(() => speak(word.word, true), 150)
     return () => clearTimeout(timer)
   }, [word.id, speak, word.word])
@@ -47,9 +59,14 @@ export function FlashCard({ word, status, onKnown, onUnknown, current, total }: 
       <div className="progress-bar-wrap">
         <div className="progress-bar" style={{ width: `${(current / total) * 100}%` }} />
       </div>
-      <div className="progress-text">{current} / {total}</div>
+      <div className="progress-text">
+        {current} / {total}
+      </div>
 
-      <div className={`card-scene ${flipped ? 'is-flipped' : ''}`} onClick={() => setFlipped((f) => !f)}>
+      <div
+        className={`card-scene ${flipped ? 'is-flipped' : ''}`}
+        onClick={() => setFlipped((f) => !f)}
+      >
         <div className="card">
           <div className="card-face card-front">
             <span className={`level-badge level-${word.level}`}>{levelLabel[word.level]}</span>
@@ -57,7 +74,9 @@ export function FlashCard({ word, status, onKnown, onUnknown, current, total }: 
             <div className="word-text">{word.word}</div>
             <div className="phonetic">{word.phonetic}</div>
 
-            <button className="speak-btn speak-btn-center" onClick={handleSpeak} title="発音を聞く">🔊</button>
+            <button className="speak-btn speak-btn-center" onClick={handleSpeak} title="発音を聞く">
+              🔊
+            </button>
 
             <div className="front-divider" />
 
@@ -67,7 +86,9 @@ export function FlashCard({ word, status, onKnown, onUnknown, current, total }: 
           </div>
 
           <div className="card-face card-back">
-            <button className="speak-btn speak-btn-back" onClick={handleSpeak} title="発音を聞く">🔊</button>
+            <button className="speak-btn speak-btn-back" onClick={handleSpeak} title="発音を聞く">
+              🔊
+            </button>
             <div className="part-of-speech">{word.partOfSpeech}</div>
             <div className="meaning">{word.meaning}</div>
             <div className="example-section">

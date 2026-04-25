@@ -35,9 +35,21 @@
   color: #0e7490;
 }
 
-.chip-known.active, .chip-known:hover { border-color: #059669; background: #d1fae5; color: #065f46; }
-.chip-unknown.active, .chip-unknown:hover { border-color: #dc2626; background: #fee2e2; color: #991b1b; }
-.chip-unreviewed { cursor: default; }
+.chip-known.active,
+.chip-known:hover {
+  border-color: #059669;
+  background: #d1fae5;
+  color: #065f46;
+}
+.chip-unknown.active,
+.chip-unknown:hover {
+  border-color: #dc2626;
+  background: #fee2e2;
+  color: #991b1b;
+}
+.chip-unreviewed {
+  cursor: default;
+}
 
 .chip-count {
   background: rgba(0, 0, 0, 0.08);
@@ -59,4 +71,7 @@
   transition: all 0.15s ease;
 }
 
-.reset-btn:hover { border-color: #9ca3af; color: #374151; }
+.reset-btn:hover {
+  border-color: #9ca3af;
+  color: #374151;
+}
