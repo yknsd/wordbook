@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { words } from './data/words'
+import type { Word } from './data/words'
 import { FlashCard } from './components/FlashCard'
 import { Stats } from './components/Stats'
 import { useProgress } from './hooks/useProgress'
@@ -7,34 +8,55 @@ import './App.css'
 
 type Filter = 'all' | 'unknown' | 'known'
 
+function shuffle<T>(arr: T[]): T[] {
+  const result = [...arr]
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[result[i], result[j]] = [result[j] as T, result[i] as T]
+  }
+  return result
+}
+
 export default function App() {
   const { progress, setStatus, resetProgress } = useProgress()
   const [filter, setFilter] = useState<Filter>('all')
   const [index, setIndex] = useState(0)
+  const [deck, setDeck] = useState<Word[]>(() => shuffle(words))
 
   const filteredWords = useMemo(() => {
     if (filter === 'all') return words
     return words.filter((w) => (progress[w.id] ?? 'unreviewed') === filter)
   }, [filter, progress])
 
-  const safeIndex = Math.min(index, Math.max(0, filteredWords.length - 1))
-  const currentWord = filteredWords[safeIndex]
+  // フィルターが変わるたびにシャッフルし直す
+  useEffect(() => {
+    setDeck(shuffle(filteredWords))
+    setIndex(0)
+  }, [filter]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const safeIndex = Math.min(index, Math.max(0, deck.length - 1))
+  const currentWord = deck[safeIndex]
 
   const handleFilterChange = (f: Filter) => {
     setFilter(f)
-    setIndex(0)
   }
 
   const handleKnown = () => {
     if (!currentWord) return
     setStatus(currentWord.id, 'known')
-    if (safeIndex < filteredWords.length - 1) setIndex((i) => i + 1)
+    if (safeIndex < deck.length - 1) setIndex((i) => i + 1)
   }
 
   const handleUnknown = () => {
     if (!currentWord) return
     setStatus(currentWord.id, 'unknown')
-    if (safeIndex < filteredWords.length - 1) setIndex((i) => i + 1)
+    if (safeIndex < deck.length - 1) setIndex((i) => i + 1)
+  }
+
+  const handleReset = () => {
+    resetProgress()
+    setDeck(shuffle(words))
+    setIndex(0)
   }
 
   return (
@@ -47,7 +69,7 @@ export default function App() {
         <Stats
           total={words.length}
           progress={progress}
-          onReset={() => { resetProgress(); setIndex(0) }}
+          onReset={handleReset}
           onFilterChange={handleFilterChange}
           currentFilter={filter}
         />
@@ -59,7 +81,7 @@ export default function App() {
             onKnown={handleKnown}
             onUnknown={handleUnknown}
             current={safeIndex + 1}
-            total={filteredWords.length}
+            total={deck.length}
           />
         ) : (
           <div className="empty-state">
