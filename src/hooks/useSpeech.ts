@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef } from 'react'
 
 const FEMALE_VOICE_NAMES = [
-  'Samantha',          // iOS / macOS Safari
-  'Victoria',          // macOS Safari
+  'Samantha', // iOS / macOS Safari
+  'Victoria', // macOS Safari
   'Google US English', // Chrome (female)
-  'Karen',             // macOS Australian
-  'Moira',             // macOS Irish
+  'Karen', // macOS Australian
+  'Moira', // macOS Irish
 ]
 
 function pickFemaleVoice(voices: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
@@ -31,7 +31,9 @@ export function useSpeech() {
     load()
     window.speechSynthesis.addEventListener('voiceschanged', load)
 
-    const onInteract = () => { hasInteractedRef.current = true }
+    const onInteract = () => {
+      hasInteractedRef.current = true
+    }
     window.addEventListener('touchstart', onInteract, { once: true })
     window.addEventListener('mousedown', onInteract, { once: true })
 

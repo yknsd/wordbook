@@ -39,7 +39,9 @@ export function Stats({ total, progress, onReset, onFilterChange, currentFilter 
           未学習 <span className="chip-count">{unreviewed}</span>
         </span>
       </div>
-      <button className="reset-btn" onClick={onReset}>リセット</button>
+      <button className="reset-btn" onClick={onReset}>
+        リセット
+      </button>
     </div>
   )
 }
