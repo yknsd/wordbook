@@ -9,8 +9,6 @@ interface Props {
   status: WordStatus
   onKnown: () => void
   onUnknown: () => void
-  onNext: () => void
-  onPrev: () => void
   current: number
   total: number
 }
@@ -23,7 +21,7 @@ function highlightWord(sentence: string, target: string) {
   )
 }
 
-export function FlashCard({ word, status, onKnown, onUnknown, onNext, onPrev, current, total }: Props) {
+export function FlashCard({ word, status, onKnown, onUnknown, current, total }: Props) {
   const [flipped, setFlipped] = useState(false)
   const { speak } = useSpeech()
 
@@ -65,10 +63,7 @@ export function FlashCard({ word, status, onKnown, onUnknown, onNext, onPrev, cu
 
             <div className="front-example">
               <p className="front-example-en">{highlightWord(word.example, word.word)}</p>
-              <p className="front-example-ja">{word.exampleTranslation}</p>
             </div>
-
-            <div className="tap-hint">タップして意味を見る</div>
           </div>
 
           <div className="card-face card-back">
@@ -88,10 +83,6 @@ export function FlashCard({ word, status, onKnown, onUnknown, onNext, onPrev, cu
           <span className="btn-icon">✗</span>
           <span className="btn-label">わからない</span>
         </button>
-        <div className="nav-buttons">
-          <button className="nav-btn" onClick={onPrev} disabled={current <= 1}>‹</button>
-          <button className="nav-btn" onClick={onNext} disabled={current >= total}>›</button>
-        </div>
         <button className="action-btn known-btn" onClick={onKnown}>
           <span className="btn-icon">✓</span>
           <span className="btn-label">わかった！</span>
